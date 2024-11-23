@@ -1,6 +1,7 @@
 package fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.handlers;
 
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.ResponseDTO;
+import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.searchdescription.SearchDescriptionDTO;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.helpers.EmberSeries;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.models.EnergyResponse;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.service.ElectricityGenerationDataService;
@@ -41,6 +42,9 @@ public class APIsHandler {
         List <EmberSeries> emberSeries = RequestParamsHandler.StringToEmberSeries(series);
         List < IndicatorsTranslatorService.Indicators> indicators = RequestParamsHandler.StringToIndicators(indicatorList);
         List <String> countryList = Arrays.stream(countries.split(",")).toList();
+
+        SearchDescriptionBuilder searchDescriptionBuilder = new SearchDescriptionBuilder();
+        SearchDescriptionDTO search = searchDescriptionBuilder.BuildSearchDescription(countryList,dates,searchDescription);
 
 
         co2EmissionService.getStats(countryList, indicators, dates.get(0), dates.get(1));
