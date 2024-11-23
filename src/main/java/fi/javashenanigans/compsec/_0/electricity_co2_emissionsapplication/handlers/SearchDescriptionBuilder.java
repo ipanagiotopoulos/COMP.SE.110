@@ -10,7 +10,7 @@ import java.util.List;
 
 public class SearchDescriptionBuilder {
 
-    public SearchDescriptionDTO BuildSearchDescription( List <String> countries, List<Integer> dates, String description ){
+    public SearchDescriptionDTO BuildSearchDescription( List <String> countries, List<Integer> dates ){
         List<CountryDTO> countriesDTO = new ArrayList <CountryDTO>();
         for (String country : countries){
             countriesDTO.add(new CountryDTO(country, null));

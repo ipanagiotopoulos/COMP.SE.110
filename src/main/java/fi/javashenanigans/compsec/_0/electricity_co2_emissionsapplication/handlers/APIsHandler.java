@@ -44,7 +44,7 @@ public class APIsHandler {
         List <String> countryList = Arrays.stream(countries.split(",")).toList();
 
         SearchDescriptionBuilder searchDescriptionBuilder = new SearchDescriptionBuilder();
-        SearchDescriptionDTO search = searchDescriptionBuilder.BuildSearchDescription(countryList,dates,searchDescription);
+        SearchDescriptionDTO search = searchDescriptionBuilder.BuildSearchDescription(countryList,dates);
 
 
         co2EmissionService.getStats(countryList, indicators, dates.get(0), dates.get(1));
