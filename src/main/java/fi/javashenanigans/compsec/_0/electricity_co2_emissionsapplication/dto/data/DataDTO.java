@@ -4,6 +4,7 @@ package fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.d
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.data.subcomponents.CarbonIntensityDTO;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.data.subcomponents.ElectricityDemandDTO;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.data.subcomponents.EmissionDTO;
+import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.data.subcomponents.PowerSectorEmissionsDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ public class DataDTO {
     private String region;
     private String date;
     private CarbonIntensityDTO carbonIntensity;
-    private List <EmissionDTO> emissions;
-    private List<ElectricityDemandDTO> electricityDemand;
+    private EmissionDTO emissions;
+    private ElectricityDemandDTO electricityDemand;
+    private PowerSectorEmissionsDTO powerSectorEmissions;
 }
