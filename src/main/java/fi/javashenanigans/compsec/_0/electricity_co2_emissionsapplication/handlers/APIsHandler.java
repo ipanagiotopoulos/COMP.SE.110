@@ -3,16 +3,13 @@ package fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.handl
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.ResponseDTO;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.searchdescription.SearchDescriptionDTO;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.helpers.EmberSeries;
-import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.models.EnergyResponse;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.service.ElectricityGenerationDataService;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.helpers.RequestParamsHandler;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.worldbank.wrapper.helpers.IndicatorsTranslatorService;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.worldbank.wrapper.service.CO2EmissionDataService;
 
-import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.worldbank.wrapper.service.CO2EmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import retrofit2.Call;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,12 +27,6 @@ public class APIsHandler {
         this.co2EmissionService = new CO2EmissionDataService();
     }
 
-// @RequestParam(value="date_range") String dateRange,
-// @RequestParam(value="countries") String countries,
-// @RequestParam(value="series") String series,
-// @RequestParam(value="indicators") String indicators
-
-
     public ResponseDTO getDataFromBothSources(String dateRange, String countries, String series, String indicatorList){
 
         List <Integer> dates = RequestParamsHandler.StringToDateRange(dateRange);
@@ -43,7 +34,7 @@ public class APIsHandler {
         List < IndicatorsTranslatorService.Indicators> indicators = RequestParamsHandler.StringToIndicators(indicatorList);
         List <String> countryList = Arrays.stream(countries.split(",")).toList();
 
-        SearchDescriptionBuilder searchDescriptionBuilder = new SearchDescriptionBuilder();
+        SearchDescriptiondtoBuilder searchDescriptionBuilder = new SearchDescriptiondtoBuilder();
         SearchDescriptionDTO search = searchDescriptionBuilder.BuildSearchDescription(countryList,dates);
 
 

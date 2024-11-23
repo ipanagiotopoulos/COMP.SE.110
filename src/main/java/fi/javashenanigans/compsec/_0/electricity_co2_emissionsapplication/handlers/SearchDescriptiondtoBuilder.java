@@ -1,14 +1,13 @@
 package fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.handlers;
 
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.searchdescription.subcomponents.CountryDTO;
-import lombok.Data;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.searchdescription.SearchDescriptionDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class SearchDescriptionBuilder {
+public class SearchDescriptiondtoBuilder {
 
     public SearchDescriptionDTO BuildSearchDescription( List <String> countries, List<Integer> dates ){
         List<CountryDTO> countriesDTO = new ArrayList <CountryDTO>();
