@@ -16,7 +16,7 @@ public class CO2EmissionDataService {
 
     public void getStats( List<String> entities, List<IndicatorsTranslatorService.Indicators> indicators, int startDate, int endDate) {
         CO2EmissionsDataCallerApiClient client = new CO2EmissionsDataCallerApiClient(worldBankConfigService);
-        client.fetchEco2EmissionsData(entities, List.of(startDate ,endDate),indicators);
+        client.fetchco2EmissionsData(entities, List.of(startDate ,endDate),indicators);
     }
 
 }

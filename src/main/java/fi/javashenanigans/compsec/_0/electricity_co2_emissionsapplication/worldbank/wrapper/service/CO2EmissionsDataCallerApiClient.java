@@ -3,6 +3,8 @@ package fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.world
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.models.EnergyResponse;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.helpers.RequestParamsHandler;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.worldbank.wrapper.helpers.IndicatorsTranslatorService;
+import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.worldbank.wrapper.models.EmissionData;
+import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.worldbank.wrapper.models.EmissionResponse;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.worldbank.wrapper.service.config.WorldBankConfigService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,16 +35,16 @@ public class CO2EmissionsDataCallerApiClient {
 
 
    // replace void
-    public EnergyResponse fetchEco2EmissionsData( List <String> countries, List<Integer> dateRange, List<IndicatorsTranslatorService.Indicators> indicators ) {
-        Call <EnergyResponse> call = apiService.getCO2EmissionsData(9999, RequestParamsHandler.DateRangeToString(dateRange),"json");
+    public EmissionResponse fetchco2EmissionsData( List <String> countries, List<Integer> dateRange, List<IndicatorsTranslatorService.Indicators> indicators ) {
+        Call <EmissionResponse> call = apiService.getCO2EmissionsData(9999, RequestParamsHandler.DateRangeToString(dateRange),"json");
         try {
-            Response <EnergyResponse> response = call.execute();////// Synchronous call
-            if ( response.isSuccessful( ) ) {
-                EnergyResponse energyStatsData = response.body();
-                System.out.println("Fetched energy data: " + energyStatsData.toString());
-                return energyStatsData;
+            Response <EmissionResponse> emissionResponse = call.execute();////// Synchronous call
+            if ( emissionResponse.isSuccessful( ) ) {
+                EmissionResponse emissionsData = emissionResponse.body();
+                System.out.println("Fetched energy data: " + emissionsData.toString());
+                return emissionsData;
             } else {
-                System.err.println("Request failed. Error: " + response.errorBody().string() +" whole body"+response.body());
+                System.err.println("Request failed. Error: " + emissionResponse.errorBody().string() +" whole body"+emissionResponse.body());
                 return null;
             }
         }catch (Exception e) {

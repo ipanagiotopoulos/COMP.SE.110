@@ -42,10 +42,9 @@ public class APIsHandler {
         List < IndicatorsTranslatorService.Indicators> indicators = RequestParamsHandler.StringToIndicators(indicatorList);
         List <String> countryList = Arrays.stream(countries.split(",")).toList();
 
-        CO2EmissionService co2service =
+
         co2EmissionService.getStats(countryList, indicators, dates.get(0), dates.get(1));
         electricityGenerationDataService.getStats(countryList, emberSeries, dates.get(0), dates.get(1));
-
 
     }
 
