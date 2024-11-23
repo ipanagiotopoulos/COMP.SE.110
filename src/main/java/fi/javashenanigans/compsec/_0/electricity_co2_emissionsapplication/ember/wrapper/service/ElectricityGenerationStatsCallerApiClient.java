@@ -35,7 +35,6 @@ public class ElectricityGenerationStatsCallerApiClient {
 
         try{
             Response <EnergyResponse> response = call.execute();
-
             if ( response.isSuccessful( ) ) {
                 EnergyResponse energyStatsData = response.body();
 

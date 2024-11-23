@@ -1,7 +1,6 @@
 package fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.models;
 
-import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.data.models.Stats;
-
+import  fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.wrapper.ember.models.Stats;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

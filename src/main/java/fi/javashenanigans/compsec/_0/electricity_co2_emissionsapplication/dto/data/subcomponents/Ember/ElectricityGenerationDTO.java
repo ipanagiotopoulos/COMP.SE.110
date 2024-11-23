@@ -1,4 +1,4 @@
-package fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.data.subcomponents;
+package fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.data.subcomponents.Ember;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ElectricityGenerationDTO {
+public class ElectricityGenerationDTO implements EmberDataDTO {
     private String series;
     private double generationTwh;
     private  double shareOfElectricityGeneration;
