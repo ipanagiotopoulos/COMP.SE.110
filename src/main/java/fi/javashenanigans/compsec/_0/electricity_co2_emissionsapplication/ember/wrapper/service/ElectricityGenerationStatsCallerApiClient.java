@@ -28,7 +28,7 @@ public class ElectricityGenerationStatsCallerApiClient {
         this.apiService = retrofit.create(ElectricityGenerationService.class);
     }
 
-    public void fetchEnergyData( List<String> countries, List <EmberSeries> seriesList, List<Integer> dateRange) {
+    public EnergyResponse fetchEnergyData( List<String> countries, List <EmberSeries> seriesList, List<Integer> dateRange) {
 
         Call <EnergyResponse> call = apiService.getElectricityGenerationStat(countries.toString(), seriesList.toString(), true, dateRange.get(0).toString(), dateRange.get(1).toString(),emberConfigService.getApiKey());
 
@@ -40,13 +40,16 @@ public class ElectricityGenerationStatsCallerApiClient {
                 EnergyResponse energyStatsData = response.body();
 
                 System.out.println("Fetched energy data: " + energyStatsData.toString());
+                return energyStatsData;
             } else {
                 System.err.println("Request failed. Error: " + response.errorBody().string() + " whole body" + response.body( ));
+                return null;
             }
 
         }
         catch(Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 

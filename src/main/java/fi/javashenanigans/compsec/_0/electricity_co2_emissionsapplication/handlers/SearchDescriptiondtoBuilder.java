@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SearchDescriptiondtoBuilder {
+public class SearchDescriptionBuilder {
 
     public SearchDescriptionDTO BuildSearchDescription( List <String> countries, List<Integer> dates ){
         List<CountryDTO> countriesDTO = new ArrayList <CountryDTO>();
