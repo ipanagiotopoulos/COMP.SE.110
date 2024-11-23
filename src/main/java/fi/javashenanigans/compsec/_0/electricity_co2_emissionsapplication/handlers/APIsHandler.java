@@ -2,12 +2,16 @@ package fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.handl
 
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.ResponseDTO;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.helpers.EmberSeries;
+import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.models.EnergyResponse;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.service.ElectricityGenerationDataService;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.helpers.RequestParamsHandler;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.worldbank.wrapper.helpers.IndicatorsTranslatorService;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.worldbank.wrapper.service.CO2EmissionDataService;
+
+import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.worldbank.wrapper.service.CO2EmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import retrofit2.Call;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,6 +42,7 @@ public class APIsHandler {
         List < IndicatorsTranslatorService.Indicators> indicators = RequestParamsHandler.StringToIndicators(indicatorList);
         List <String> countryList = Arrays.stream(countries.split(",")).toList();
 
+        CO2EmissionService co2service =
         co2EmissionService.getStats(countryList, indicators, dates.get(0), dates.get(1));
         electricityGenerationDataService.getStats(countryList, emberSeries, dates.get(0), dates.get(1));
 

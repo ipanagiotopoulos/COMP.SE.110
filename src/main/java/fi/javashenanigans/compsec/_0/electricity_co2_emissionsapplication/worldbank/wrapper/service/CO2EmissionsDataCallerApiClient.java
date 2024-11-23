@@ -27,28 +27,27 @@ public class CO2EmissionsDataCallerApiClient {
     public CO2EmissionsDataCallerApiClient( WorldBankConfigService worldBankConfigService ) {
         this.worldBankConfigService = worldBankConfigService;
         String baseUrl = constructUrl(worldBankConfigService.getBaseUrl(), worldBankConfigService.getApiVersion(),worldBankConfigService.getPrefix());
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create( )).build( );
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
         this.apiService = retrofit.create(CO2EmissionService.class);
     }
 
 
-    //@Query("per_page") int  perPage,
-    //@Query("date") String startDate,
-   // @Query("format") String dataFormat
-    public void fetchEco2EmissionsData( List <String> countries, List<Integer> dateRange, List<IndicatorsTranslatorService.Indicators> indicators ) {
-
-
+   // replace void
+    public EnergyResponse fetchEco2EmissionsData( List <String> countries, List<Integer> dateRange, List<IndicatorsTranslatorService.Indicators> indicators ) {
         Call <EnergyResponse> call = apiService.getCO2EmissionsData(9999, RequestParamsHandler.DateRangeToString(dateRange),"json");
         try {
             Response <EnergyResponse> response = call.execute();////// Synchronous call
             if ( response.isSuccessful( ) ) {
                 EnergyResponse energyStatsData = response.body();
                 System.out.println("Fetched energy data: " + energyStatsData.toString());
+                return energyStatsData;
             } else {
                 System.err.println("Request failed. Error: " + response.errorBody().string() +" whole body"+response.body());
+                return null;
             }
         }catch (Exception e) {
             e.printStackTrace();
+            return  null;
         }
     }
 
