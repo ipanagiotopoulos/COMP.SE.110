@@ -14,39 +14,34 @@ public class Stats {
     private Long id;
 
     private String timestamp;
-    private double responseTimeInSeconds;
-    private String rateLimit;
-    private int numberOfRecords;
-    private QueryParametersUsed queryParametersUsed;
-    private List <String> availableMetrics;
-    private QueryValueRange queryValueRange;
-    private String queryAllDatesValueRange;
+    private double response_time_in_seconds;
+    private String rate_limit;
+    private int number_of_records;
+    private QueryParametersUsed query_parameters_used;
+    private List <String> available_metrics;
+    private QueryValueRange query_value_range;
+    private String query_all_dates_value_range;
 
-
-    @Getter @Setter @NoArgsConstructor
+    @Getter @Setter @NoArgsConstructor @ToString
     class QueryParametersUsed {
         private List<String> entity;
-        private String startDate;
-        private String endDate;
+        private String start_date;
+        private String end_date;
         private List<String> series;
-        private boolean isAggregateSeries;
         private Long id;
     }
 
-    @Getter @Setter @NoArgsConstructor
+    @Getter @Setter @NoArgsConstructor @ToString
     class QueryValueRange {
-        private MetricRangeDAO generationTwh;
-        private MetricRangeDAO shareOfGenerationPct;
-        private Long id;
+        private MetricRangeDAO generation_twh;
+        private MetricRangeDAO share_of_generation_pct;
     }
 
-    @Getter @Setter @NoArgsConstructor
+    @Getter @Setter @NoArgsConstructor @ToString
     class MetricRangeDAO {
         private double min;
         private double max;
-        private Long id;
     }
-
 }
 
 

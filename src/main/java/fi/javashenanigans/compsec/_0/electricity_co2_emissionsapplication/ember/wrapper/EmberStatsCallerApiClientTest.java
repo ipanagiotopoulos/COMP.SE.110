@@ -18,7 +18,7 @@ public class EmberStatsCallerApiClientTest {
         mockEmberConfigService = new EmberConfigService() {
             @Override
             public String getBaseUrl() {
-                return "https://api.ember-climate.org";
+                return "https://api.ember-energy.org/";
             }
 
             @Override
@@ -28,7 +28,7 @@ public class EmberStatsCallerApiClientTest {
 
             @Override
             public String getApiKey() {
-                return "test-api-key";
+                return "b0e10ae2-d272-4cd2-9564-953990746867";
             }
         };
 
@@ -39,7 +39,7 @@ public class EmberStatsCallerApiClientTest {
     public void testFetchEnergyData_Success() {
         // Arrange
         setUp();
-        List<String> countries = Arrays.asList("US", "CN");
+        List<String> countries = Arrays.asList("Unites States", "Canada");
         List<EmberSeries> series = new ArrayList<>();
         series.add(EmberSeries.wind);
         List<Integer> dateRange = Arrays.asList(2020, 2021);

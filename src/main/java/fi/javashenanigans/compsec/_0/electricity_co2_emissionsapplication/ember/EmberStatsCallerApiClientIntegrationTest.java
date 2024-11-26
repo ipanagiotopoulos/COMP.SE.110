@@ -1,9 +1,11 @@
 package fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.service;
 
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.helpers.EmberSeries;
+import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.models.DataRecord;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.models.EnergyResponse;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.wrapper.ember.service.config.EmberConfigService;
 
+import javax.xml.crypto.Data;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class EmberStatsCallerApiClientIntegrationTest {
         configService = new EmberConfigService() {
             @Override
             public String getBaseUrl() {
-                return "https://api.ember-climate.org";
+                return "https://api.ember-energy.org/";
             }
 
             @Override
@@ -39,13 +41,15 @@ public class EmberStatsCallerApiClientIntegrationTest {
         setUp();
 
         // Prepare test parameters
-        List<String> countries = Arrays.asList("US", "CN"); // Example countries
-        List<EmberSeries> series = Arrays.asList(EmberSeries.wind);
+        List<String> countries = Arrays.asList("Finland", "Greece"); // Example countries
+        List<EmberSeries> series = Arrays.asList(EmberSeries.wind,EmberSeries.coal);
+
         List<Integer> dateRange = Arrays.asList(2020, 2022);
 
         // Perform API call
         EnergyResponse response = apiClient.fetchEnergyData(countries, series, dateRange);
 
+        debugLineHelper(response);
 
         // Validate response
         assert response != null : "Energy response should not be null";
@@ -59,34 +63,40 @@ public class EmberStatsCallerApiClientIntegrationTest {
         setUp();
 
         // Prepare test parameters with multiple countries
-        List<String> countries = Arrays.asList("US", "CN", "IN", "DE", "GB");
+        List<String> countries = Arrays.asList("Germany","Netherlands");
         List<EmberSeries> series = Arrays.asList(
                 EmberSeries.coal,
-                EmberSeries.solar
+                EmberSeries.solar,
+                EmberSeries.bioenergy
         );
         List<Integer> dateRange = Arrays.asList(2018, 2022);
 
         // Perform API call
         EnergyResponse response = apiClient.fetchEnergyData(countries, series, dateRange);
 
+        debugLineHelper(response);
+
+
         // Validate response
         assert response != null : "Energy response should not be null for multiple countries";
 
         System.out.println("Multiple Countries Data Fetch Test: PASSED");
         System.out.println("Received Data: " + response);
+        System.out.println("===========");
     }
 
     public void testLongTermDataFetch() {
         setUp();
 
         // Prepare test parameters for a longer time range
-        List<String> countries = Arrays.asList("US");
+        List<String> countries = Arrays.asList("Canada");
         List<EmberSeries> series = Arrays.asList(EmberSeries.wind);
         List<Integer> dateRange = Arrays.asList(2000, 2022);
 
         // Perform API call
         EnergyResponse response = apiClient.fetchEnergyData(countries, series, dateRange);
 
+        debugLineHelper(response);
         // Validate response
         assert response != null : "Long-term energy response should not be null";
 
@@ -100,11 +110,13 @@ public class EmberStatsCallerApiClientIntegrationTest {
         // Test with invalid parameters
         try {
             // Empty countries list
-            List<String> countries = Arrays.asList();
+            List<String> countries = Arrays.asList("");
             List<EmberSeries> series = Arrays.asList(EmberSeries.coal);
             List<Integer> dateRange = Arrays.asList(2020, 2022);
 
             EnergyResponse response = apiClient.fetchEnergyData(countries, series, dateRange);
+
+            debugLineHelper(response);
 
             // If no exception is thrown, ensure response is null
             assert response == null : "Response should be null for invalid input";
@@ -132,5 +144,18 @@ public class EmberStatsCallerApiClientIntegrationTest {
             System.err.println("Unexpected error during testing: ");
             e.printStackTrace();
         }
+    }
+
+
+    public void debugLineHelper(EnergyResponse response){
+        System.out.println("==================");
+        System.out.println("respose.stats: "+response.getStats().toString());
+
+        for(DataRecord dr : response.getData()){
+            System.out.println("respose.data: "+dr.toString());
+        }
+        System.out.println("==================");
+        System.out.println();
+
     }
 }

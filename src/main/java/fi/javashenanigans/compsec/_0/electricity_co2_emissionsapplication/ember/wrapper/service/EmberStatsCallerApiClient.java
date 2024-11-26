@@ -11,6 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.  converter.gson.GsonConverterFactory;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -24,31 +25,35 @@ public class EmberStatsCallerApiClient {
     public EmberStatsCallerApiClient( EmberConfigService emberConfigService ) {
         this.emberConfigService = emberConfigService;
         String baseUrl = constructUrl(this.emberConfigService.getBaseUrl( ), this.emberConfigService.getApiVersion());
-        System.out.println("base url" + baseUrl);
+        System.out.println("base url:" + baseUrl);
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
         this.apiService = retrofit.create(EmberService.class);
     }
 
     public EnergyResponse fetchEnergyData( List<String> countries, List <EmberSeries> seriesList, List<Integer> dateRange) {
-        System.out.println("api key"+emberConfigService.getApiKey());
-        Call <EnergyResponse> call = apiService.getElectricityGenerationStat(countries.toString(), seriesList.toString(), true, dateRange.get(0).toString(), dateRange.get(1).toString(),emberConfigService.getApiKey());
 
+        String seriesQueryParamString = emberSeriesListToCommaSeparatedString(seriesList);
+        String countriesQueryParamString = countriesToCommaSeparatedString(countries);
 
-
+        Call <EnergyResponse> call = apiService.getElectricityGenerationStat(countriesQueryParamString, seriesQueryParamString, true, dateRange.get(0).toString(), dateRange.get(1).toString(),emberConfigService.getApiKey());
+        Response <EnergyResponse> response =null;
         try{
-            Response <EnergyResponse> response = call.execute();
-            if ( response.isSuccessful( ) ) {
+          response = call.execute();
+            if ( response.isSuccessful() ) {
+                System.out.println("Request succeeded. Url: "+response.raw().request().url());
+                System.out.println("Request succeeded. HTTP Status code: "+response.raw().code());
                 EnergyResponse energyStatsData = response.body();
-
-                System.out.println("Fetched energy data: " + energyStatsData.toString());
                 return energyStatsData;
             } else {
-                System.err.println("Request failed. Error: " + response.errorBody().string() + " whole body" + response.body( ));
+                System.err.println("Request failed. Url: "+response.raw().request().url().toString());
+                System.err.println("Request failed. HTTP Status code: "+response.raw().code());
+                System.err.println("Request failed. Error: " + response.errorBody().string() + " whole body" + response.raw().body());
                 return null;
             }
-
         }
         catch(Exception e) {
+            System.out.println("Something wrong happened while calling this url:"+call.request().url());
+            System.out.println("body"+response.raw().toString());
             e.printStackTrace();
             return null;
         }
@@ -58,5 +63,16 @@ public class EmberStatsCallerApiClient {
     private String constructUrl( String baseUrl , String apiVersion) {
         return baseUrl +"/"+ apiVersion + "/";
     }
+
+    private String emberSeriesListToCommaSeparatedString(List<EmberSeries> emberSeries) {
+        return emberSeries.stream()
+                .map(EmberSeries::name)
+                .collect(Collectors.joining(","));
+    }
+
+    private String countriesToCommaSeparatedString(List<String> countries) {
+        return String.join(",", countries);
+    }
+
 }
 
