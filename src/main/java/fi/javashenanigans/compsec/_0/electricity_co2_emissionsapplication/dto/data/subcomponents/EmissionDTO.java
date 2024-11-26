@@ -2,7 +2,7 @@ package fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.d
 
 import lombok.*;
 
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor @Builder
 public class EmissionDTO {
     private String type;
     private double value;

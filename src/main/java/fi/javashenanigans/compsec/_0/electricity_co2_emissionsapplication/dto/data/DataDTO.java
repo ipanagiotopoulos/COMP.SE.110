@@ -2,14 +2,10 @@ package fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.d
 
 
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.data.subcomponents.*;
-import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.data.subcomponents.Ember.EmberData;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.data.subcomponents.Ember.EmberDataDTO;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor @Builder
 public class DataDTO {
     private String countryIso3Code;
     private String country;

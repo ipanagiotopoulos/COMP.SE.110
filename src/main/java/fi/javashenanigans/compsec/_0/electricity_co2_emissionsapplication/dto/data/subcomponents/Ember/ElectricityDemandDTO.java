@@ -3,7 +3,7 @@ package fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.d
 
 import lombok.*;
 
-@Getter @Setter @Data @AllArgsConstructor @NoArgsConstructor
+@Getter @Setter @Data @AllArgsConstructor @NoArgsConstructor @Builder
 public class ElectricityDemandDTO  implements EmberDataDTO{
     private String series;
     private double demandTwh;

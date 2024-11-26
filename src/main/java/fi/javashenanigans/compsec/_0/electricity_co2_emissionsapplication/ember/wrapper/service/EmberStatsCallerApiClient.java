@@ -14,18 +14,18 @@ import java.util.List;
 
 
 @Component
-public class ElectricityGenerationStatsCallerApiClient {
+public class EmberStatsCallerApiClient {
 
-    private final ElectricityGenerationService apiService;
+    private final EmberService apiService;
     private final EmberConfigService emberConfigService;
 
 
     @Autowired
-    public ElectricityGenerationStatsCallerApiClient( EmberConfigService emberConfigService ) {
+    public EmberStatsCallerApiClient( EmberConfigService emberConfigService ) {
         this.emberConfigService = emberConfigService;
         String baseUrl = constructUrl(this.emberConfigService.getBaseUrl( ), this.emberConfigService.getApiVersion());
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create( )).build( );
-        this.apiService = retrofit.create(ElectricityGenerationService.class);
+        this.apiService = retrofit.create(EmberService.class);
     }
 
     public EnergyResponse fetchEnergyData( List<String> countries, List <EmberSeries> seriesList, List<Integer> dateRange) {

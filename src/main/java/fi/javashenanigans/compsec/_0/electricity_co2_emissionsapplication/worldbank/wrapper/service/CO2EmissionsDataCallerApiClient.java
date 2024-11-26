@@ -33,8 +33,6 @@ public class CO2EmissionsDataCallerApiClient {
         this.apiService = retrofit.create(CO2EmissionService.class);
     }
 
-
-   // replace void
     public EmissionResponse fetchco2EmissionsData( List <String> countries, List<Integer> dateRange, List<IndicatorsTranslatorService.Indicators> indicators ) {
         Call <EmissionResponse> call = apiService.getCO2EmissionsData(9999, RequestParamsHandler.DateRangeToString(dateRange),"json");
         try {

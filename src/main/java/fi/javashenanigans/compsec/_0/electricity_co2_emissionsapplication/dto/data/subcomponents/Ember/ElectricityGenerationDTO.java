@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@Builder
 public class ElectricityGenerationDTO implements EmberDataDTO {
     private String series;
     private double generationTwh;

@@ -1,14 +1,12 @@
 package fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.service;
 
-import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.helpers.EmberSeries;
-
 
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.models.EnergyResponse;
 import retrofit2.Call;
 import retrofit2.http.Query;
 import retrofit2.http.GET;
 
-public interface ElectricityGenerationService {
+public interface EmberService {
 
     @GET("/v1/electricity-generation/yearly")
     Call <EnergyResponse> getElectricityGenerationStat( @Query("entity") String entity,

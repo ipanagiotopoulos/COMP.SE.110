@@ -4,9 +4,11 @@ import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.Re
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.data.DataDTO;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.searchdescription.SearchDescriptionDTO;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.helpers.EmberSeries;
-import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.service.ElectricityGenerationDataService;
+import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.models.EnergyResponse;
+import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.service.EmberDataService;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.helpers.RequestParamsHandler;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.worldbank.wrapper.helpers.IndicatorsTranslatorService;
+import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.worldbank.wrapper.models.EmissionResponse;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.worldbank.wrapper.service.CO2EmissionDataService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +21,12 @@ import java.util.List;
 public class APIsHandler {
 
     @Autowired
-    private final ElectricityGenerationDataService electricityGenerationDataService;
+    private final EmberDataService electricityGenerationDataService;
     @Autowired
     private final CO2EmissionDataService co2EmissionService;
 
     public APIsHandler() {
-        this.electricityGenerationDataService =  new ElectricityGenerationDataService();
+        this.electricityGenerationDataService =  new EmberDataService();
         this.co2EmissionService = new CO2EmissionDataService();
     }
 
@@ -39,12 +41,23 @@ public class APIsHandler {
         SearchDescriptionDTO search = searchDescriptionBuilder.BuildSearchDescription(countryList,dates);
 
 
-        DataDTO dataDTO =  new DataDTO();
+
+
+        EmissionResponse emissionResponse = co2EmissionService.getStats(countryList, indicators, dates.get(0), dates.get(1));
+        EnergyResponse energyResponse = electricityGenerationDataService.getStats(countryList, emberSeries, dates.get(0), dates.get(1));
+
+        DataDTO dataDTO =  new DataDTO(emissionResponse, energyResponse);
+
+
+
+
+
 
 
         co2EmissionService.getStats(countryList, indicators, dates.get(0), dates.get(1));
         electricityGenerationDataService.getStats(countryList, emberSeries, dates.get(0), dates.get(1));
 
+        return null;
     }
 
 
