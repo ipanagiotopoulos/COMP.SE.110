@@ -24,13 +24,15 @@ public class EmberStatsCallerApiClient {
     public EmberStatsCallerApiClient( EmberConfigService emberConfigService ) {
         this.emberConfigService = emberConfigService;
         String baseUrl = constructUrl(this.emberConfigService.getBaseUrl( ), this.emberConfigService.getApiVersion());
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create( )).build( );
+        System.out.println("base url" + baseUrl);
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
         this.apiService = retrofit.create(EmberService.class);
     }
 
     public EnergyResponse fetchEnergyData( List<String> countries, List <EmberSeries> seriesList, List<Integer> dateRange) {
-
+        System.out.println("api key"+emberConfigService.getApiKey());
         Call <EnergyResponse> call = apiService.getElectricityGenerationStat(countries.toString(), seriesList.toString(), true, dateRange.get(0).toString(), dateRange.get(1).toString(),emberConfigService.getApiKey());
+
 
 
         try{
@@ -54,7 +56,7 @@ public class EmberStatsCallerApiClient {
 
 
     private String constructUrl( String baseUrl , String apiVersion) {
-        return baseUrl + apiVersion + "/";
+        return baseUrl +"/"+ apiVersion + "/";
     }
 }
 

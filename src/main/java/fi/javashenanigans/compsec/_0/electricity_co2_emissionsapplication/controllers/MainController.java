@@ -3,12 +3,17 @@ package fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.contr
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.dto.ResponseDTO;
 
 
+import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.helpers.EmberSeries;
+import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.models.EnergyResponse;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.ember.wrapper.service.EmberDataService;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.handlers.APIsHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -28,7 +33,20 @@ public class MainController {
                                                             @RequestParam(value="series") String series,
                                                             @RequestParam(value="indicators") String indicators
     ) {
-        return apisHandlerService.getDataFromBothSources(dateRange, countries, series, indicators)
+
+        List <String> countryList = new ArrayList <String>();
+        countryList.add("FI");
+        countryList.add("US");
+        EmberDataService emberDataService = new EmberDataService();
+        List<EmberSeries> emberSeries =  new ArrayList<EmberSeries>();
+        emberSeries.add(EmberSeries.bioenergy);
+        emberSeries.add(EmberSeries.wind);
+        int startDate = 1980;
+        int endDate = 1981;
+        EnergyResponse emberResponse = emberDataService.getStats(countryList,emberSeries, startDate, endDate);
+        System.out.println("response is"+emberResponse.toString());
+        return null;
+        //return apisHandlerService.getDataFromBothSources(dateRange, countries, series, indicators);
     }
 
     @GetMapping("/power_sector_emissions")

@@ -9,6 +9,6 @@ import java.util.List;
 public class EmissionsDTOBuilder {
 
     public EmissionDTO BuildEmissionData( EmissionData emissionData) {
-
+         return null;
     }
 }

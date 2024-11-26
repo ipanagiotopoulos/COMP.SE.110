@@ -14,22 +14,22 @@ public class DataDTOBuilder {
 
     public DataDTO BuildData( EmissionResponse emissionResponse, EnergyResponse energyResponse ) {
         DataDTO dataDTO = new DataDTO();
-        EmissionDTO emssionDTO = emissionDataHandler(emissionResponse);
+        //EmissionDTO emssionDTO = emissionDataHandler(emissionResponse);
         return dataDTO;
     }
 
-    public EmissionDTO emissionDataHandler( EmissionResponse emissionResponse){
-        for (EmissionData emissionData: emissionResponse.getData()){
+  //  public EmissionDTO emissionDataHandler( EmissionResponse emissionResponse){
+    //    for (EmissionData emissionData: emissionResponse.getData()){
+//
+  //      }
 
-        }
+    //}
 
-    }
-
-    public EmberDataDTO emberDataHandler(EnergyResponse energyResponse){
-
-    }
+    //public EmberDataDTO emberDataHandler(EnergyResponse energyResponse){
+   //
+    //}
 
 
-    public
+    //public
 
 }

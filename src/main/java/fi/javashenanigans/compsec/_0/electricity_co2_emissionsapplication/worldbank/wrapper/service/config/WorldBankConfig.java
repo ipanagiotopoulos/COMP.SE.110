@@ -2,11 +2,15 @@ package fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.world
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+
+
 @Data
-@Component
-public class WorldBankConfigService {
+@Component // Registers this class as a Spring bean
+@ConfigurationProperties(prefix = "worldbank")
+public class WorldBankConfig {
     @Value("${worldbank.base.url}")
     private String baseUrl;
     @Value("${worldbank.api.version}")

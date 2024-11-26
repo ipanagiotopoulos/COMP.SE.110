@@ -11,6 +11,7 @@ import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.worldb
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.worldbank.wrapper.models.EmissionResponse;
 import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.worldbank.wrapper.service.CO2EmissionDataService;
 
+import fi.javashenanigans.compsec._0.electricity_co2_emissionsapplication.worldbank.wrapper.service.config.WorldBankConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +47,7 @@ public class APIsHandler {
         EmissionResponse emissionResponse = co2EmissionService.getStats(countryList, indicators, dates.get(0), dates.get(1));
         EnergyResponse energyResponse = electricityGenerationDataService.getStats(countryList, emberSeries, dates.get(0), dates.get(1));
 
-        DataDTO dataDTO =  new DataDTO(emissionResponse, energyResponse);
+        DataDTO dataDTO =  new DataDTO();
 
 
 
